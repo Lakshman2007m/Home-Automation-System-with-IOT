@@ -37,21 +37,44 @@ When we apply an active high signal to the signal pin of the relay module from a
 •	Test the System - Google Assistant triggers IFTTT → sends Webhook to ESP8266 → turns ON the relay (light).
 •	Say "Turn off the ligh to switch it OFF, Say "Turn on the light" to switch it ON.
 
-# CIRCUIT DIAGRAM:
-
-<img width="663" height="400" alt="image" src="https://github.com/user-attachments/assets/bfebc70d-25b4-4b4a-a7e1-2a02c09bf423" />
-
-
- 
 # PROGRAM:
+```
+#define RELAY_PIN 7
 
+void setup()
+{
+  pinMode(RELAY_PIN, OUTPUT);
 
- 
+  // Relay OFF initially
+  digitalWrite(RELAY_PIN, HIGH);
+
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  if (Serial.available())
+  {
+    char command = Serial.read();
+
+    if (command == '1')
+    {
+      digitalWrite(RELAY_PIN, LOW);   // Lamp ON
+    }
+
+    if (command == '0')
+    {
+      digitalWrite(RELAY_PIN, HIGH);  // Lamp OFF
+    }
+  }
+}
+```
 # Output:
+<img width="899" height="1599" alt="WhatsApp Image 2026-09-23 at 12 45 41" src="https://github.com/user-attachments/assets/8e105ca8-49c2-44ef-b5a7-d42fd37e8f77" />
 
 
 
 ## Result:
 
-
+The IOT device was successfully connected to the cloud and remotely controlled through the internet.
 
